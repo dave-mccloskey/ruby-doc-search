@@ -46,7 +46,7 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             q     : queryText,
             num   : 5,
             lr    : "lang_en",
-            cx    : "017146964052550031681:wnjobi1fzcm",
+            cx    : "008550084672749702097:2xvl9fhluys",
             fields: "items(formattedUrl,htmlFormattedUrl,htmlTitle,link,title)"
         },
         dataHandler);
@@ -59,7 +59,8 @@ chrome.omnibox.onInputEntered.addListener(function (queryText) {
     var url;
 
     if (queryText.indexOf("http://") === -1 && queryText.indexOf("https://") === -1) {
-        url = "https://developer.mozilla.org/en-US/search?q=" + encodeURIComponent(queryText);
+        url = "http://ruby-doc.com/search.html?cx=011815814100681837392%3Awnccv6st5qk&q="
+                + encodeURIComponent(queryText);
     } else {
         url = queryText;
     }

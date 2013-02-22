@@ -1,8 +1,9 @@
 {
-    "name"          : "MDN Search",
-    "description"   : "Search MDN within Chrome omnibox itself",
-    "version"       : "0.1.1",
-    "omnibox"       : { "keyword": "mdn" },
+    "manifest_version" : 2,
+    "name"          : "RubyDoc Search",
+    "description"   : "Search ruby-doc.org within Chrome omnibox itself",
+    "version"       : "1.0.0",
+    "omnibox"       : { "keyword": "rdoc" },
     "icons"         : {
         "16" : "mozilla-16.ico",
         "48" : "mozilla-48.png",
