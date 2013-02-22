@@ -1,4 +1,4 @@
-var API_KEY = "AIzaSyCr6xs0NlPg2hIynXQJWY3o230n6iQyDl0";
+var API_KEY = "AIzaSyCPQGZImN1P6OZ_szYe7oWpSQgG0Rie9Ns";
 
 var currentQueryString;
 var resultCache = {};
