@@ -8,7 +8,7 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
 	
 	// Prepend preferred version to query if it exists
 	preferredVersion = localStorage.getItem("rdoc_preferred_version");
-	if (preferredVersion != null || preferredVersion != "null"){
+	if (preferredVersion){
 		queryText = preferredVersion + " " + queryText;
 	}
 		
@@ -30,13 +30,13 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             tap(function (arr) { itemCountToConsider = arr.length < 5 ? arr.length : 5 }).
             first(itemCountToConsider).
             map(function (item) {
-				var title = item.htmlTitle.replace(/<b>/gi, "").replace(/<\/b>/gi, "");
-				title = title.replace(/(.*)\((Ruby [0-9\.]*)\)[ ]*- Ruby-Doc/gi, "$2 - <match>$1</match>");
-				var description = "<dim>" + title + "</dim> - <url>" + item.htmlFormattedUrl + "</url>";
-                return {
-                    content    : item.link,
-                    description: description
-                };
+				      var title = item.htmlTitle.replace(/<b>/gi, "").replace(/<\/b>/gi, "");
+				      title = title.replace(/(.*)\((Ruby [0-9\.]*)\)[ ]*- Ruby-Doc/gi, "$2 - <match>$1</match>");
+				      var description = "<dim>" + title + "</dim> - <url>" + item.htmlFormattedUrl + "</url>";
+	            return {
+	                content    : item.link,
+	                description: description
+	            };
             }).
             tap(suggestCallback);
     }
