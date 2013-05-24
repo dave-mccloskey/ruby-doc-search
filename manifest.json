@@ -4,6 +4,8 @@
     "description"   : "Search ruby-doc.org within the Chrome omnibox",
     "version"       : "1.0.0",
     "omnibox"       : { "keyword": "rdoc" },
+	"options_page"	: "options/index.html",
+	"content_security_policy" : "script-src 'self' https://www.googleapis.com; object-src 'self'",
     "icons"         : {
         "16" : "rubydoc-16.png",
         "48" : "rubydoc-48.png",

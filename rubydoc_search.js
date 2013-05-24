@@ -5,6 +5,13 @@ var resultCache = {};
 
 chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, suggestCallback) {
     console.log("Changed:", queryText);
+	
+	// Prepend preferred version to query if it exists
+	preferredVersion = localStorage.getItem("rdoc_preferred_version");
+	if (preferredVersion != null || preferredVersion != "null"){
+		queryText = preferredVersion + " " + queryText;
+	}
+		
     currentQueryString = queryText;
 
     if (!queryText) return;
@@ -23,8 +30,9 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
             tap(function (arr) { itemCountToConsider = arr.length < 5 ? arr.length : 5 }).
             first(itemCountToConsider).
             map(function (item) {
-                var description = "<url>" + item.htmlFormattedUrl + "</url><dim> - " + item.htmlTitle + "</dim>";
-                description = description.replace(/<b>/gi, "<match>").replace(/<\/b>/gi, "</match>");
+				var title = item.htmlTitle.replace(/<b>/gi, "").replace(/<\/b>/gi, "");
+				title = title.replace(/(.*)\((Ruby [0-9\.]*)\)[ ]*- Ruby-Doc/gi, "$2 - <match>$1</match>");
+				var description = "<dim>" + title + "</dim> - <url>" + item.htmlFormattedUrl + "</url>";
                 return {
                     content    : item.link,
                     description: description
@@ -38,19 +46,26 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText, sugges
         dataHandler(resultCache[queryText]);
         return;
     }
-
-    $.getJSON("https://www.googleapis.com/customsearch/v1?callback=?",
-        {
-            key   : API_KEY,
-            alt   : "json",
-            q     : queryText,
-            num   : 5,
-            lr    : "lang_en",
-            cx    : "008550084672749702097:2xvl9fhluys",
-            fields: "items(formattedUrl,htmlFormattedUrl,htmlTitle,link,title)"
-        },
-        dataHandler);
+	
+	getResults(queryText);
+	
+	function getResults(queryText) {
+	    $.getJSON("https://www.googleapis.com/customsearch/v1?callback=?",
+	        {
+	            key   : API_KEY,
+	            alt   : "json",
+	            q     : queryText,
+	            num   : 5,
+	            lr    : "lang_en",
+	            cx    : "008550084672749702097:2xvl9fhluys",
+	            fields: "items(formattedUrl,htmlFormattedUrl,htmlTitle,link,title)"
+	        },
+	        dataHandler);
+	}
+   
 }, 250));
+
+
 
 chrome.omnibox.onInputEntered.addListener(function (queryText) {
     // Navigate user to selected page or the search page
