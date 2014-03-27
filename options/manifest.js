@@ -3,6 +3,12 @@ this.manifest = {
     "name": "RubyDoc Search",
     "icon": "../rubydoc-48.png",
     "settings": [
+        {   "tab": "Preferred Ruby Version",
+            "group": "Set preferred version",
+            "name": "intro",
+            "type": "description",
+            "text": "RubyDoc Search works best when given a preferred version number, set it here."
+        },
         {
             "tab": "Preferred Ruby Version",
             "group": "Set preferred version",
@@ -26,7 +32,7 @@ this.manifest = {
 			"group": "Note",
 			"name": "note",
 			"type": "description",
-			"text": "Setting this preference does not limit results to only that Ruby version, but is pretty good at prioritizing them.<br><br>It actually works by prepending the contents of the box onto the search, so you may be able to find inventive uses for it."
+            "text": "The version number given above is simply prepended to the query input before being dispatched to the search engine; this works well but is imperfect and you may see results pertaining to Ruby versions other than that chosen."
 		}
 		]
 	};
