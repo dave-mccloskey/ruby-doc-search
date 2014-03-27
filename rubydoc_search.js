@@ -1,4 +1,11 @@
-var API_KEY = "AIzaSyCPQGZImN1P6OZ_szYe7oWpSQgG0Rie9Ns";
+var API_KEYS = ["AIzaSyCPQGZImN1P6OZ_szYe7oWpSQgG0Rie9Ns", "AIzaSyCq7n2UlAJw6Dt6fWbjzvO-WWXs6ak8x9U"];
+
+function getAPIKey() {
+  var key_index = 0;
+  if (new Date().getTime() % 2 == 0) key_index = 1;
+  
+  return API_KEYS[key_index];
+}
 
 var currentQueryString;
 var resultCache = {};
@@ -56,7 +63,7 @@ chrome.omnibox.onInputChanged.addListener(_.debounce(function (queryText,
 
   function getResults(queryText) {
     $.getJSON("https://www.googleapis.com/customsearch/v1?callback=?", {
-      key: API_KEY,
+      key: getAPIKey(),
       alt: "json",
       q: queryText,
       num: 5,
